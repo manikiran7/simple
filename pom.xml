@@ -35,26 +35,17 @@
                 </configuration>
             </plugin>
 
-            <!-- START: Added for Tomcat Deployment -->
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat9-maven-plugin</artifactId>
-                <version>2.2</version> <!-- This version is widely compatible -->
+                <artifactId>tomcat7-maven-plugin</artifactId>  <version>2.2</version>
                 <configuration>
-                    <!-- The URL to your Tomcat Manager's text interface -->
-                    <!-- For Tomcat 8, 9, 10, the manager URL is still typically /manager/text -->
                     <url>http://3.88.144.100:8080/manager/text</url>
-                    <!-- The context path where your application will be accessible -->
-                    <!-- e.g., http://your-tomcat-ip:8080/SimpleCustomerApp -->
                     <path>/SimpleCustomerApp</path>
-                    <!-- Set to true to allow redeploying over an existing application -->
                     <update>true</update>
-                    <!-- The <server> ID that Maven will look for in your settings.xml for credentials -->
                     <server>tomcat-server</server>
-                </configuration>
+                    <tomcatVersion>9.0.105</tomcatVersion> </configuration>
             </plugin>
-            <!-- END: Added for Tomcat Deployment -->
-        </plugins>
+            </plugins>
     </build>
 
     <distributionManagement>
