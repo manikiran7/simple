@@ -17,7 +17,7 @@ pipeline {
         // Define Maven settings file ID from Managed Files
         // YOU MUST CREATE A JENKINS MANAGED FILE (Maven settings file) WITH THIS ID
         MAVEN_SETTINGS_FILE_ID = 'my-nexus-settings'
-        // CORRECTED: This ID must match the actual credential ID in Jenkins (from your screenshot)
+        // This ID must match the actual credential ID in Jenkins (from your screenshot)
         // YOU MUST CREATE A JENKINS CREDENTIAL WITH THIS ID (Username with password)
         TOMCAT_CREDENTIALS_ID = 'tomcat-manager-credentials'
     }
@@ -67,16 +67,14 @@ pipeline {
                 script {
                     // This block securely retrieves your Tomcat username and password from Jenkins credentials
                     // and makes them available as environment variables TOMCAT_USERNAME and TOMCAT_PASSWORD.
+                    // This is crucial for Maven to pick up the credentials from settings.xml.
                     withCredentials([usernamePassword(credentialsId: TOMCAT_CREDENTIALS_ID, passwordVariable: 'TOMCAT_PASSWORD', usernameVariable: 'TOMCAT_USERNAME')]) {
-                        // DEBUGGING: Check current working directory and contents of target/
-                        sh '''
-                        echo "Current working directory: $(pwd)"
-                        echo "Contents of target/ directory:"
-                        ls -l target/
-                        '''
-                        // The curl command now uses the securely injected environment variables
-                        // and uses the absolute path to the WAR file for robustness.
-                        sh "curl -u ${TOMCAT_USERNAME}:${TOMCAT_PASSWORD} --upload-file ${env.WORKSPACE}/target/SimpleCustomerApp.war \"http://3.88.144.100:8080/manager/text/deploy?path=/SimpleCustomerApp&update=true\""
+                        // This ensures Maven runs with your custom settings.xml (which now contains Tomcat server credentials)
+                        withMaven(maven: 'Maven3', mavenSettingsConfig: MAVEN_SETTINGS_FILE_ID) {
+                            // This command triggers the Maven plugin to deploy the WAR file to Tomcat.
+                            // Make sure your pom.xml is configured with tomcat9-maven-plugin.
+                            sh "mvn tomcat9:redeploy"
+                        }
                     }
                 }
             }
