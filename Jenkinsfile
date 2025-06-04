@@ -11,7 +11,6 @@ pipeline {
         NEXUS_CREDENTIALS_ID = 'nexus-deploy-credentials'
         MAVEN_SETTINGS_FILE_ID = 'my-nexus-settings'
         TOMCAT_CREDENTIALS_ID = 'tomcat-manager-credentials'
-        // ADDED SLACK CREDENTIALS ID HERE for clarity
         SLACK_CREDENTIALS_ID = 'slack-token' // Your credential ID
     }
 
@@ -66,7 +65,7 @@ pipeline {
             cleanWs()
             echo 'Pipeline cleanup complete.'
             slackSend (
-                channel: '#jenkins-builds', // Replace with your actual Slack channel name
+                channel: '#team', // Your Slack channel name
                 color: '#CCCC00',
                 message: "Project *${env.JOB_NAME}* - Build #${env.BUILD_NUMBER} has finished with status: *${currentBuild.currentResult}* (<${env.BUILD_URL}|Open in Jenkins>)"
             )
@@ -74,7 +73,7 @@ pipeline {
         success {
             echo 'Pipeline finished successfully!'
             slackSend (
-                channel: '#jenkins-builds', // Replace with your actual Slack channel name
+                channel: '#team', // Your Slack channel name
                 color: 'good',
                 message: "SUCCESS: Project *${env.JOB_NAME}* - Build #${env.BUILD_NUMBER} deployed successfully! (<${env.BUILD_URL}|Open in Jenkins>)"
             )
@@ -82,14 +81,14 @@ pipeline {
         failure {
             echo 'Pipeline failed!'
             slackSend (
-                channel: '#jenkins-builds', // Replace with your actual Slack channel name
+                channel: '#team', // Your Slack channel name
                 color: 'danger',
                 message: "FAILURE: Project *${env.JOB_NAME}* - Build #${env.BUILD_NUMBER} failed! (<${env.BUILD_URL}|Open in Jenkins>)"
             )
         }
         unstable {
             slackSend (
-                channel: '#jenkins-builds', // Replace with your actual Slack channel name
+                channel: '#team', // Your Slack channel name
                 color: 'warning',
                 message: "UNSTABLE: Project *${env.JOB_NAME}* - Build #${env.BUILD_NUMBER} is unstable! (<${env.BUILD_URL}|Open in Jenkins>)"
             )
