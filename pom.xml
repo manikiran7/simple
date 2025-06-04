@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.visualpathit</groupId>
+    <groupId>com.visualpathit</</groupId>
     <artifactId>SimpleCustomerApp</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
@@ -34,12 +34,33 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
+
+            <!-- START: Added for Tomcat Deployment -->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat9-maven-plugin</artifactId>
+                <version>2.2</version> <!-- This version is widely compatible -->
+                <configuration>
+                    <!-- The URL to your Tomcat Manager's text interface -->
+                    <!-- For Tomcat 8, 9, 10, the manager URL is still typically /manager/text -->
+                    <url>http://3.88.144.100:8080/manager/text</url>
+                    <!-- The context path where your application will be accessible -->
+                    <!-- e.g., http://your-tomcat-ip:8080/SimpleCustomerApp -->
+                    <path>/SimpleCustomerApp</path>
+                    <!-- Set to true to allow redeploying over an existing application -->
+                    <update>true</update>
+                    <!-- The <server> ID that Maven will look for in your settings.xml for credentials -->
+                    <server>tomcat-server</server>
+                </configuration>
+            </plugin>
+            <!-- END: Added for Tomcat Deployment -->
         </plugins>
     </build>
 
     <distributionManagement>
         <snapshotRepository>
-            <id>nexus</id> <url>http://3.91.5.74:8081/repository/maven-snapshots/</url>
+            <id>nexus</id>
+            <url>http://3.91.5.74:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
-        </distributionManagement>
+    </distributionManagement>
 </project>
