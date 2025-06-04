@@ -73,7 +73,7 @@ pipeline {
                         withMaven(maven: 'Maven3', mavenSettingsConfig: MAVEN_SETTINGS_FILE_ID) {
                             // This command triggers the Maven plugin to deploy the WAR file to Tomcat.
                             // Make sure your pom.xml is configured with tomcat9-maven-plugin.
-                            sh "mvn tomcat9:redeploy"
+                            sh "mvn tomcat7:redeploy"
                         }
                     }
                 }
