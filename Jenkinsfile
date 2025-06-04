@@ -13,7 +13,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git url: 'https://github.com/betawins/sabear_simplecutomerapp.git', branch: 'main'
+        git url: 'https://github.com/manikiran7/simple.git', branch: 'main'
       }
     }
 
@@ -41,7 +41,7 @@ pipeline {
       steps {
         sh '''
         curl -u tomcat:yourpassword --upload-file target/SimpleCustomerApp.war \
-        "http://3.86.140.185:8080/manager/text/deploy?path=/SimpleCustomerApp&update=true"
+        "http://3.88.144.100:8080/manager/text/deploy?path=/SimpleCustomerApp&update=true"
         '''
       }
     }
