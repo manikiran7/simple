@@ -19,7 +19,7 @@ pipeline {
         MAVEN_SETTINGS_FILE_ID = 'my-nexus-settings'
         // Define Tomcat credentials ID
         // YOU MUST CREATE A JENKINS CREDENTIAL WITH THIS ID (Username with password)
-        TOMCAT_CREDENTIALS_ID = 'tomcat-creds'
+        TOMCAT_CREDENTIALS_ID = 'tomcat-manager-credentials'
     }
 
     stages {
