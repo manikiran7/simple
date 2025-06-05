@@ -39,7 +39,7 @@
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>  <version>2.2</version>
                 <configuration>
-                    <url>http://3.88.144.100:8080/manager/text</url>
+                    <url>http://3.84.89.87:8080/manager/text</url>
                     <path>/SimpleCustomerApp</path>
                     <update>true</update>
                     <server>tomcat-server</server>
@@ -51,7 +51,7 @@
     <distributionManagement>
         <snapshotRepository>
             <id>nexus</id>
-            <url>http://3.91.5.74:8081/repository/maven-snapshots/</url>
+            <url>http://54.172.209.151:8081/repository/maven-releases/</url>
         </snapshotRepository>
     </distributionManagement>
 </project>
