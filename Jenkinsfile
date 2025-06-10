@@ -48,6 +48,7 @@ pipeline {
                 // This 'withSonarQubeEnv' block links to the SonarQube server configured in Jenkins
                 withSonarQubeEnv("${SONARQUBE_ENV}") {
                     // Run the Maven sonar:sonar goal with a defined project key
+                    // This project key matches your pom.xml's artifactId/name
                     sh 'mvn sonar:sonar -Dsonar.projectKey=SimpleCustomerApp'
                 }
             }
@@ -116,9 +117,7 @@ pipeline {
                         
                         // Execute Maven deploy, skipping tests and using the dynamically created settings file
                         // The 'withMaven' step ensures the configured 'Maven3' tool is used.
-                        withMaven(maven: 'Maven3') {
-                            sh "mvn deploy -DskipTests -s nexus-settings.xml"
-                        }
+                        sh "mvn deploy -DskipTests -s nexus-settings.xml"
                     }
                 }
             }
@@ -152,9 +151,7 @@ pipeline {
 
                         // Execute Maven tomcat7:redeploy goal, using the dynamically created settings file
                         // The 'withMaven' step ensures the configured 'Maven3' tool is used.
-                        withMaven(maven: 'Maven3') {
-                            sh "mvn tomcat7:redeploy -s tomcat-settings.xml"
-                        }
+                        sh "mvn tomcat7:redeploy -s tomcat-settings.xml"
                     }
                 }
             }
